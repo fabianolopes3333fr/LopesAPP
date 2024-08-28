@@ -64,6 +64,8 @@ if not DEBUG:
 
 # Aplicativos do django
 DJANGO_APPS = [
+    'apps.contas',
+    'apps.devis',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -77,7 +79,10 @@ THIRD_APPS = [
 ]
 PROJECT_APPS = [
     'apps.base',
-    # 'apps.myapp',
+    'apps.config',
+    'apps.perfil',
+    'apps.pages',
+    'apps.forum', # Adiciona
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_APPS + PROJECT_APPS
 
@@ -85,13 +90,13 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_APPS + PROJECT_APPS
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    "corsheaders.middleware.CorsMiddleware", #cors
+    'django_session_timeout.middleware.SessionTimeoutMiddleware', # timeout
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'requestlogs.middleware.RequestLogsMiddleware',#logs
+    'requestlogs.middleware.RequestLogsMiddleware', # Logs
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -107,6 +112,12 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # Apps
+                'base.context_processors.context_social', 
+                'base.context_processors.get_logo', 
+                'base.context_processors.get_seo', 
+                'base.context_processors.get_ga_code', 
+                'base.context_processors.get_scripts', 
             ],
         },
     },
@@ -132,7 +143,7 @@ DATABASES = {
 
 	}
 }
-
+AUTH_USER_MODEL = "contas.MyUser"
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -180,6 +191,21 @@ REQUESTLOGS = {
     'SECRETS': ['password', 'token'],
     'METHODS': ('PUT', 'PATCH', 'POST', 'DELETE'),
 }
+
+# timeout tempo de inatividate no sistema
+SESSION_EXPIRE_SECONDS = 1800 
+SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
+#SESSION_EXPIRE_AFTER_LAST_ACTIVITY_GRACE_PERIOD = 60  
+SESSION_TIMEOUT_REDIRECT = 'http://localhost:8000/contas/timeout/'
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Database
+# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 

@@ -2,7 +2,7 @@
 URL configuration for core project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.1/topics/http/urls/
+    https://docs.djangoproject.com/en/5.0/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -17,10 +17,16 @@ Including another URLconf
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import path
+from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('contas/', include('contas.urls')), # url do app
+    path('perfil/', include('perfil.urls')), # url do app
+    path('config/', include('config.urls')),
+    path('forum/', include('forum.urls')),
+    path('devis/', include('devis.urls')),
+    path('', include('pages.urls')), # url do app
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

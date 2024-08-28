@@ -1,0 +1,60 @@
+@import url('global.css');
+@import url('main.css');
+@import url('foot.css');
+
+.sidebar {
+    position: fixed;
+    height: 100%;
+    padding: 10px 15px 0;
+    z-index: 0;
+}
+
+.sidebar button {
+    height: 60px;
+}
+
+.bloco {
+    margin: 70px 0px 70px 0px;
+}
+
+.pagination .page-link {
+    background: rgb(138, 138, 138);
+    color: white;
+    border: none;
+}
+
+.banner {
+    /* background-image: url('https://i2.wp.com/cremers.org.br/wp-content/uploads/2021/12/prontuario_site_gettyimages.png'); */
+    padding: 8em 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    position: relative;
+}
+
+@media (min-width: 968px) {
+    .bloco {
+        padding-left: 250px;
+    }
+
+    /* .collapse:not(.show) {
+        display: flex;
+    } */
+}
+
+
+
+
+@media (max-width: 968px) {
+    .sidebar {
+        width: 100%;
+    }
+
+    .navbar-brand {
+        display: none;
+    }
+
+    footer {
+        display: none;
+    }
+}
